@@ -1,0 +1,38 @@
+setBackdrop('#000000');
+var ship = createSprite("ship.png");
+var clock = 0;
+var bullets = [];
+forever(function () {
+    shipControl();
+    bullet();
+
+});
+function shipControl () {
+    ship.toward(cursor);
+    if (ship.touched(cursor) == false) {
+        ship.stepForward(3);
+    }
+};
+function bullet() {
+    clock ++;
+    if (clock%3 == 0) {
+        
+        
+        if (clock%2 == 1) {
+            var bullet = createSprite("bullet.png");
+            //bullet.toward(ship);
+            bullet.direction = Math.random()*360;
+            bullet.stepForward(500);
+            //bullet.toward(ship);
+            //bullet.direction = Math.random()*360;
+            bullets.push(bullet);
+        }
+    }
+    for (var i = 0; i < bullets.length; i++) {
+        bullets[i].toward(ship);
+        bullets[i].stepForward(2);
+        if(bullets[i].touched(ship)){
+            stop();
+        }
+    }
+}
