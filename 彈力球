@@ -1,0 +1,59 @@
+// 設定背景圖
+setBackdrop('bg.jpg');
+
+// 創造角色
+var ball = createSprite("ball.png");
+var p1 = createSprite("orange.jpg");
+var p2 = createSprite("blue.jpg");
+
+// 初始化位置
+p1.x = 631;
+p2.x = 10;
+
+var score1 = 0;
+var score2 = 0;
+var speed = 5;
+var d=ball.direction=Math.random()*45+90
+d=Math.floor(ball.direction)
+forever(function() {
+    print(ball.direction,0,0,"white");
+    if (ball.x>640 || ball.x<0) {
+        ball.direction=ball.direction*-1;
+    }
+    if (ball.y>480||ball.y<0) {
+        ball.direction=ball.direction+45;
+    }
+    print(score2, 30, 20, '#157df9', 40);
+    print(score1, 580, 20, '#fd7e24', 40);
+    ball.stepForward(speed);
+    if (key.w) {
+        p2.y-=5
+    }
+    if (key.s) {
+        p2.y+=5
+    }
+    if (key.up) {
+        p1.y-=5
+    }
+    if (key.down) {
+        p1.y+=5
+    }
+    if (ball.touched(p1)||ball.touched(p2)) {
+        ball.direction+=90
+        speed+=0.5
+    }    
+    if (ball.x>640) {
+        score2+=1
+        ball.direction=Math.random()*90+45
+        ball.x=320
+        ball.y=240
+        speed=5
+    }
+    if (ball.x<0) {
+        score1+=1
+        ball.direction=Math.random()*-90+45
+        ball.x=320
+        ball.y=240
+        speed=5
+    }
+});
